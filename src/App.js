@@ -35,17 +35,21 @@ const options = [
 
 const App = props => {
     const [selectedOption, setSelectedOption ] = useState(options[0]);
+    const [showDropdown, setShowDropdown] = useState(true);
 
     return (
         <div>
             <h1>Widgets App</h1>
             {/* <Accordion items={items}/> */}
             {/* <Search /> */}
-            <Dropdown 
-                options={options} 
-                onSelectedOptionChange={setSelectedOption}
-                selectedOption={selectedOption}
-            />
+            <button onClick={(e) => {setShowDropdown(!showDropdown)}}>Toggle Dropdown</button>
+            {showDropdown ?
+                <Dropdown 
+                    options={options} 
+                    onSelectedOptionChange={setSelectedOption}
+                    selectedOption={selectedOption}
+                /> : null
+            }
         </div>
     )
 }
