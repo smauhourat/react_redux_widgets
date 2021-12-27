@@ -1,8 +1,10 @@
 import React, {useState} from 'react'
-// import Accordion from './components/Accordion';
-// import Search from './components/Search';
-// import Dropdown from './components/Dropdown';
+import Accordion from './components/Accordion';
+import Search from './components/Search';
+import Dropdown from './components/Dropdown';
 import Translate from './components/Translate';
+import Route from './components/Route';
+import Header from './components/Header';
 
 const items = [
     {
@@ -34,6 +36,12 @@ const options = [
     }
 ]
 
+const showAccordion = () => {
+    if (window.location.pathname === '/') {
+        return <Accordion items={items}/>
+    }
+}
+
 const App = props => {
     const [selectedOption, setSelectedOption ] = useState(options[0]);
     const [showDropdown, setShowDropdown] = useState(true);
@@ -41,18 +49,24 @@ const App = props => {
     return (
         <div>
             <h1>Widgets App</h1>
-            {/* <Accordion items={items}/> */}
-            {/* <Search /> */}
-            {/* <button onClick={(e) => {setShowDropdown(!showDropdown)}}>Toggle Dropdown</button>
-            {showDropdown ?
+            <Header />
+            <Route path="/">
+                <Accordion items={items} />
+            </Route>
+            <Route path="/list">
+                <Search />
+            </Route>
+            <Route path="/dropdown">
                 <Dropdown 
                     options={options} 
                     label="Select a Color"
                     onSelectedOptionChange={setSelectedOption}
                     selectedOption={selectedOption}
-                /> : null
-            } */}
-            <Translate />
+                />
+            </Route>
+            <Route path="/translate">
+                <Translate />
+            </Route>            
         </div>
     )
 }
