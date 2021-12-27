@@ -4,13 +4,24 @@ import axios from 'axios';
 
 const Convert = ({ language, text }) => {
     const [output, setOutput] = useState('');
+    const [debouncedText, setDebouncedText] = useState(text);
+
+    useEffect(() => {
+        const timerId = setTimeout(() => {
+            setDebouncedText(text)
+        }, 500);
+
+        return () => {
+            clearTimeout(timerId);
+        };
+    }, [text]);
 
     useEffect(() => {
      
         const onTranslateSubmit = async () => {
             const { data } = await google.post('', {}, {
                 params: {
-                    q: text,
+                    q: debouncedText,
                     target: language.value
                 }
             });
@@ -18,7 +29,7 @@ const Convert = ({ language, text }) => {
         };
 
         onTranslateSubmit();
-    }, [language, text]);
+    }, [language, debouncedText]);
 
     return (
         <div>
