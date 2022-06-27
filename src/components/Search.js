@@ -28,6 +28,7 @@ const Search = props => {
                 }
             }, 500);
     
+            //console.log('timeoutId: ' + timeoutId);
             //CLEAN UP FUNCTION
             return () => {
                 clearTimeout(timeoutId);
